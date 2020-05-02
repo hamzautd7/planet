@@ -62,7 +62,7 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    pred = learn.predict(img)[0]
+    pred = learn.predict()
     for p in pred:
         p.replace('_', ' ')
     for p in pred:
