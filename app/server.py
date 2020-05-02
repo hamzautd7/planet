@@ -13,6 +13,10 @@ export_file_url = 'https://drive.google.com/uc?export=download&id=1hNqjgTeKApRtz
 export_file_name = 'export.pkl'
 
 classes = ['audi','buggati','honda', 'lambo', 'ferrari', 'chevi']
+
+classes = ['agriculture','artisinal_mine','bare_ground','blooming','blow_down',
+           'clear','cloudy','conventional_mine','cultivation','habitation',
+           'haze','partly_cloudy','primary','road','selective_logging','slash_burn','water']
 path = Path(__file__).parent
 
 app = Starlette()
@@ -60,8 +64,16 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    pred = learn.predict(img)[0]
+    for p in pred:
+        p.replace('_', ' ')
+    for p in pred:
+        p.title()
+    if pred == '[]':
+        pred = 'Could not recognize any classes, perhaps try another photo?'
+    return JSONResponse({
+        'result': pred
+    })
 
 
 if __name__ == '__main__':
