@@ -9,10 +9,8 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1hNqjgTeKApRtzm7NTsbTboWtgN8D8mjh'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1-4iLhNZmPvwrEcdjZi-h6OYsnaN7TWMD'
 export_file_name = 'export.pkl'
-
-classes = ['audi','buggati','honda', 'lambo', 'ferrari', 'chevi']
 
 classes = ['agriculture','artisinal_mine','bare_ground','blooming','blow_down',
            'clear','cloudy','conventional_mine','cultivation','habitation',
