@@ -59,20 +59,24 @@ async def homepage(request):
 
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
-    img_data = await request.form()
-    img_bytes = await (img_data['file'].read())
+    data = await request.form()
+    img_bytes = await (data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    pred = learn.predict(img)[0]
-    str1 = ''.join(pred)
-    for p in str1:
-        p.replace('_', ' ')
-    for p in str1:
-        p.title()
-    if str1 == '':
-        str1 = 'Could not recognize any classes, perhaps try another photo?'
-    return JSONResponse({
-        'result': str1
-    })
+    return JSONResponse({'result': str(learn.predict(img)[0])})
+
+# @app.route('/analyze', methods=['POST'])
+# async def analyze(request):
+#     img_data = await request.form()
+#     img_bytes = await (img_data['file'].read())
+#     img = open_image(BytesIO(img_bytes))
+#     pred = learn.predict()
+#     for p in pred:
+#         p.replace('_', ' ')
+#     for p in pred:
+#         p.title()
+#     if pred == '[]':
+#         pred = 'Could not recognize any classes, perhaps try another photo?'
+#     return JSONResponse({'result': str(pred)})
 
 
 if __name__ == '__main__':
