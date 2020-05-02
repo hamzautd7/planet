@@ -63,14 +63,15 @@ async def analyze(request):
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     pred = learn.predict(img)[0]
-    for p in pred:
+    str1 = ''.join(pred)
+    for p in str1:
         p.replace('_', ' ')
-    for p in pred:
+    for p in str1:
         p.title()
-    if pred == '[]':
-        pred = 'Could not recognize any classes, perhaps try another photo?'
+    if str1 == '':
+        str1 = 'Could not recognize any classes, perhaps try another photo?'
     return JSONResponse({
-        'result': pred
+        'result': str1
     })
 
 
